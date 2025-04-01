@@ -1,16 +1,21 @@
 {
   "expo": {
     "name": "USPEnrol",
-    "slug": "usp-enrol-mobile",
+    "slug": "USPEnrol",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/light-icon.png",
+    "scheme": "usp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
-    },
+      "supportsTablet": true,
+      "icon": {
+        "dark": "./assets/images/dark-icon.png",
+        "light": "./assets/images/light-icon.png",
+        "tinted": "./assets/images/tinted-i.png"
+    }
+  },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -27,10 +32,14 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/splash-icon-dark",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "image": "./assets/images/splash-icon-light.png",
+            "backgroundColor": "#00263E"
+          }
         }
       ],
       "expo-secure-store"

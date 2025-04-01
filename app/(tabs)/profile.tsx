@@ -5,7 +5,7 @@ import { useSession } from "@/context/ctx";
 const MyProgram = () => {
   const { signOut } = useSession();
   return (
-    <View className="flex bg-usp-dark-teal items-center justify-center h-full">
+    <>
       <View className="ml-5 mt-5">
         <Text className="text-5xl text-usp-teal-300 font-bold">Home</Text>
       </View>
@@ -17,7 +17,7 @@ const MyProgram = () => {
       >
         <Text className="text-white font-bold text-md">Logout</Text>
       </Pressable>
-    </View>
+    </>
   );
 };
 
