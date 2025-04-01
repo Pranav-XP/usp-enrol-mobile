@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "usp-enrol-mobile",
+    "name": "USPEnrol",
     "slug": "usp-enrol-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -32,7 +32,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
