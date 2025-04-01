@@ -3,7 +3,7 @@ import { Redirect, Tabs } from "expo-router";
 import { useSession } from "../../context/ctx";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function AppLayout() {
+export default function TabLayout() {
   const { session, isLoading } = useSession();
 
   // You can keep the splash screen open, or render a loading screen like we do here.
