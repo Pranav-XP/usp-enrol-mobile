@@ -7,6 +7,8 @@ export default function SignIn() {
   const { signIn } = useSession();
   return (
     <View className="flex bg-usp-dark-teal items-center justify-center h-full">
+      <Text className='text-6xl font-semibold text-usp-teal text-center'> Welcome to</Text>
+      <Text className='mb-2 text-6xl font-bold text-white text-center'>USPEnrol</Text>
       <Pressable
       className='p-4 bg-usp-teal px-20 py-4 rounded-md active:bg-usp-teal-500' onPress={() => {
           signIn();

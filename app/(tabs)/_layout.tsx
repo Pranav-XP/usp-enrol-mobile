@@ -23,20 +23,29 @@ export default function AppLayout() {
   // This layout can be deferred because it's not the root layout.
   return(
     <Tabs screenOptions={{ tabBarActiveTintColor: '#008C95',
+      tabBarInactiveTintColor:'grey',
       headerShown:false,
      }}>
     <Tabs.Screen
       name="index"
       options={{
         title: 'Home',
-        tabBarIcon: ({ }) => <Ionicons name="home" size={24} color="black" /> ,
+        tabBarIcon: ({color }) => <Ionicons name="home" size={24} color={color} /> ,
       }}
     />
     <Tabs.Screen
       name="my-program"
       options={{
         title: 'My Programme',
-        tabBarIcon: ({ color }) => <Ionicons name="school" size={24} color="black" />,
+        tabBarIcon: ({ color }) => <Ionicons name="school" size={24} color={color} />,
+      }}
+    />
+
+<Tabs.Screen
+      name="profile"
+      options={{
+        title: 'Profile',
+        tabBarIcon: ({ color }) => <Ionicons name="person" size={24} color={color} />,
       }}
     />
   </Tabs>
