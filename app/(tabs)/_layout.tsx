@@ -28,7 +28,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#008C95",
         tabBarInactiveTintColor:Colors.darkTeal.DEFAULT,
         headerShown: false,
-        animation: "shift",
+        animation: "none",
         tabBarStyle: {
           backgroundColor:Colors.teal[100],
           borderRadius: 50,
