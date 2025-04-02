@@ -51,7 +51,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const signOut = async () => {
     try {
       await setSession(null); // Clear session storage
-      delete axiosInstance.defaults.headers.common["Authorization"]; // Remove auth header
+      axios.defaults.headers.common['Authorization'] = `` // Remove auth header
     } catch (error) {
       console.error("Logout error:", error);
     }
