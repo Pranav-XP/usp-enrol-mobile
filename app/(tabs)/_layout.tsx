@@ -1,7 +1,8 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { Redirect, Tabs } from "expo-router";
 import { useSession } from "../../context/ctx";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Colors } from "@/constants/colors";
 
 export default function TabLayout() {
   const { session, isLoading } = useSession();
@@ -21,13 +22,27 @@ export default function TabLayout() {
 
   // This layout can be deferred because it's not the root layout.
   return (
+
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#008C95",
-        tabBarInactiveTintColor: "grey",
+        tabBarInactiveTintColor:Colors.darkTeal.DEFAULT,
         headerShown: false,
+        animation: "shift",
+        tabBarStyle: {
+          backgroundColor:Colors.teal[100],
+          borderRadius: 50,
+          marginHorizontal: 20,
+          marginBottom: 20,
+          height: 60,
+          position: "absolute",
+          overflow: "hidden",
+          borderWidth:1,
+          borderColor:Colors.darkTeal[500],
+        },
       }}
     >
+
       <Tabs.Screen
         name="index"
         options={{
@@ -36,7 +51,7 @@ export default function TabLayout() {
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
-      />
+        />
 
       <Tabs.Screen
         name="my-program"
@@ -46,7 +61,7 @@ export default function TabLayout() {
             <Ionicons name="school" size={size} color={color} />
           ),
         }}
-      />
+        />
       <Tabs.Screen
         name="fees"
         options={{
@@ -55,7 +70,7 @@ export default function TabLayout() {
             <Ionicons name="card" size={size} color={color} />
           ),
         }}
-      />
+        />
       <Tabs.Screen
         name="profile"
         options={{
@@ -64,7 +79,7 @@ export default function TabLayout() {
             <Ionicons name="person" size={size} color={color} />
           ),
         }}
-      />
+        />
     </Tabs>
   );
 }
