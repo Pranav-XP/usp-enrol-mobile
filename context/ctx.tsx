@@ -33,7 +33,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await axios.post("http://192.168.8.112:8000/api/auth/login", {
+      const response = await axios.post("https://a727-210-7-29-12.ngrok-free.app/api/auth/login", {
         email,
         password,
         device_name,

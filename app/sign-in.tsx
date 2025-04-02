@@ -34,7 +34,7 @@ export default function SignIn() {
 
       {/* Email Input */}
       <TextInput
-        className="bg-white p-4 mb-2 rounded-md w-80 text-white"
+        className="bg-white p-4 mb-2 rounded-md w-80 text-black"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -43,7 +43,7 @@ export default function SignIn() {
 
       {/* Password Input */}
       <TextInput
-        className="bg-white p-4 mb-4 rounded-md w-80 text-white border-2 border-usp-teal-100"
+        className="bg-white p-4 mb-4 rounded-md w-80 text-black border-2 border-usp-teal-100"
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
