@@ -7,8 +7,7 @@ export default function RootLayout() {
   return (
     <SessionProvider>
       <SafeAreaProvider>
-        <SafeAreaView
-        className="bg-usp-dark-teal flex-1">
+        <SafeAreaView className="flex-1 bg-red-500">
           <Stack
             screenOptions={{
               headerShown: false,
