@@ -33,7 +33,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await axios.post("https://a727-210-7-29-12.ngrok-free.app/api/auth/login", {
+      const response = await axios.post("https://intimate-buzzard-purely.ngrok-free.app/api/auth/login", {
         email,
         password,
         device_name,
