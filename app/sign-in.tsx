@@ -47,7 +47,8 @@ export default function SignIn() {
   };
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{
         flex: 1,
         justifyContent: "center",
@@ -73,7 +74,7 @@ export default function SignIn() {
         placeholder="Enter your email"
         label={"Email"}
         style={{
-          marginTop: 20,
+          marginTop: 10,
           width: "80%",
         }}
       />
@@ -82,6 +83,7 @@ export default function SignIn() {
         secureTextEntry={!passwordVisible}
         style={{
           marginTop: 20,
+          marginBottom: 10,
           width: "80%",
         }}
         right={
@@ -91,7 +93,9 @@ export default function SignIn() {
           />
         }
       ></TextInput>
-      <Button>Login</Button>
-    </View>
+      <Button style={{ width: "80%" }} mode="contained">
+        Login
+      </Button>
+    </KeyboardAvoidingView>
   );
 }
