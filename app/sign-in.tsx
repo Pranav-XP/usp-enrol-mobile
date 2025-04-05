@@ -47,55 +47,57 @@ export default function SignIn() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}
-    >
-      <Text variant="displayMedium">Welcome to</Text>
-      <Text
-        variant="displayLarge"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
         style={{
-          color: Colors.light.primary,
-          fontWeight: "bold",
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
         }}
       >
-        USPEnrol
-      </Text>
+        <Text variant="displayMedium">Welcome to</Text>
+        <Text
+          variant="displayLarge"
+          style={{
+            color: Colors.light.primary,
+            fontWeight: "bold",
+          }}
+        >
+          USPEnrol
+        </Text>
 
-      <TextInput
-        placeholder="Enter your email"
-        label={"Email"}
-        style={{
-          marginTop: 10,
-          width: "80%",
-        }}
-      />
-      <TextInput
-        label="Password"
-        secureTextEntry={!passwordVisible}
-        style={{
-          marginTop: 20,
-          marginBottom: 10,
-          width: "80%",
-        }}
-        right={
-          <TextInput.Icon
-            icon={passwordVisible ? "eye-off" : "eye"}
-            onPress={() => setPasswordVisible(!passwordVisible)}
-          />
-        }
-      ></TextInput>
-      <Button style={{ width: "80%" }} mode="contained">
-        Login
-      </Button>
-    </KeyboardAvoidingView>
+        <TextInput
+          placeholder="Enter your email"
+          label={"Email"}
+          style={{
+            marginTop: 10,
+            width: "80%",
+          }}
+        />
+        <TextInput
+          label="Password"
+          secureTextEntry={!passwordVisible}
+          style={{
+            marginTop: 20,
+            marginBottom: 10,
+            width: "80%",
+          }}
+          right={
+            <TextInput.Icon
+              icon={passwordVisible ? "eye-off" : "eye"}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            />
+          }
+        ></TextInput>
+        <Button style={{ width: "80%" }} mode="contained">
+          Login
+        </Button>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
