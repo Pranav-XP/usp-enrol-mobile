@@ -22,64 +22,62 @@ export default function TabLayout() {
 
   // This layout can be deferred because it's not the root layout.
   return (
-
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#008C95",
-        tabBarInactiveTintColor:Colors.darkTeal.DEFAULT,
+        tabBarInactiveTintColor: Colors.light.primary,
         headerShown: false,
         animation: "none",
         tabBarStyle: {
-          backgroundColor:Colors.teal[100],
+          backgroundColor: Colors.teal[100],
           borderRadius: 50,
           marginHorizontal: 20,
           marginBottom: 20,
           height: 60,
           position: "absolute",
           overflow: "hidden",
-          borderWidth:1,
-          borderColor:Colors.darkTeal[500],
+          borderWidth: 1,
+          borderColor: Colors.darkTeal[500],
         },
       }}
     >
-
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color,size }) => (
+          tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
-        />
+      />
 
       <Tabs.Screen
         name="my-program"
         options={{
           title: "My Programme",
-          tabBarIcon: ({ color, size}) => (
+          tabBarIcon: ({ color, size }) => (
             <Ionicons name="school" size={size} color={color} />
           ),
         }}
-        />
+      />
       <Tabs.Screen
         name="fees"
         options={{
           title: "Fees",
-          tabBarIcon: ({ color,size }) => (
+          tabBarIcon: ({ color, size }) => (
             <Ionicons name="card" size={size} color={color} />
           ),
         }}
-        />
+      />
       <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color,size}) => (
+          tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size} color={color} />
           ),
         }}
-        />
+      />
     </Tabs>
   );
 }

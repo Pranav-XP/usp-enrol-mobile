@@ -9,8 +9,9 @@ import {
 } from "react-native-paper";
 
 import { SessionProvider } from "@/context/ctx";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { Colors } from "@/constants/colors";
+import { Colors } from "../constants/colors";
 import { useColorScheme } from "react-native";
 
 import {
@@ -42,11 +43,13 @@ export default function RootLayout() {
     <SessionProvider>
       <PaperProvider theme={paperTheme}>
         <ThemeProvider value={paperTheme}>
-          <Stack
-            screenOptions={{
-              headerShown: false,
-            }}
-          />
+          <SafeAreaProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            />
+          </SafeAreaProvider>
         </ThemeProvider>
       </PaperProvider>
     </SessionProvider>
