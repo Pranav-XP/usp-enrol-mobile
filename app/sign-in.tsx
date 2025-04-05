@@ -7,8 +7,9 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
+import { Button } from "react-native-paper";
 import { useState } from "react";
 import { useSession } from "../context/ctx";
 import { router } from "expo-router";
@@ -57,6 +58,7 @@ export default function SignIn() {
           <Text className="mb-2 text-6xl font-bold text-white text-center">
             USPEnrol
           </Text>
+          <Button mode="contained">Material</Button>
 
           {error && (
             <Text className="text-red-500 mb-2 font-bold">{error}</Text>

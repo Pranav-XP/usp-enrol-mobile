@@ -33,13 +33,18 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const response = await axios.post("https://intimate-buzzard-purely.ngrok-free.app/api/auth/login", {
-        email,
-        password,
-        device_name,
-      });
+      const response = await axios.post(
+        "https://intimate-buzzard-purely.ngrok-free.app/api/auth/login",
+        {
+          email,
+          password,
+          device_name,
+        }
+      );
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.token}`;
       await setSession(response.data.token);
       return response;
     } catch (error) {
@@ -51,7 +56,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const signOut = async () => {
     try {
       await setSession(null); // Clear session storage
-      axios.defaults.headers.common['Authorization'] = `` // Remove auth header
+      axios.defaults.headers.common["Authorization"] = ``; // Remove auth header
     } catch (error) {
       console.error("Logout error:", error);
     }
