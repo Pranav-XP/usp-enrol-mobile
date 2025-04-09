@@ -2,6 +2,7 @@ import { getProgram } from "@/api/services/student";
 import { Colors } from "@/constants/colors";
 import { useSession } from "@/context/ctx";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
@@ -25,6 +26,7 @@ type Course = {
 export default function MyProgram() {
   const { session } = useSession();
   const [expandedYear, setExpandedYear] = useState<number | null>(null);
+  const router = useRouter();
 
   const handleAccordionPress = (year: number) =>
     setExpandedYear((prev) => (prev === year ? null : year));
@@ -146,7 +148,7 @@ export default function MyProgram() {
             {yearCourses.map((course) => (
               <View key={course.id}>
                 <List.Item
-                  onPress={() => console.log("Item Pressed")}
+                  onPress={() => router.navigate(`/course/${course.id}`)}
                   style={{ paddingVertical: 15 }}
                   titleStyle={{ fontWeight: "bold" }}
                   title={`${course.course_code}`}
