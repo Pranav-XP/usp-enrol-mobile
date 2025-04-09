@@ -1,15 +1,19 @@
-import { SafeAreaView, Text,View } from 'react-native'
-import React from 'react'
+import { View } from "react-native";
+import { Text } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const MyProgram = () => {
+export default function MyProgram() {
+  const insets = useSafeAreaInsets();
   return (
-    <View className="bg-usp-dark-teal flex-1">
-    <View className="mt-5 ml-5">
-
-    <Text className="text-5xl text-usp-teal-300 font-bold">My Programme</Text>
+    <View
+      style={{
+        flex: 1,
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}
+    >
+      <Text variant="titleLarge">Bachelors of Software Engineering</Text>
     </View>
-  </View>
-  )
+  );
 }
-
-export default MyProgram

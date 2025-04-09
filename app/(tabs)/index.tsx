@@ -1,14 +1,24 @@
-import { Text, View } from "react-native";
-
-
+import { useSession } from "@/context/ctx";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
+  const insets = useSafeAreaInsets();
+  const { user } = useSession();
   return (
-      <View className="bg-usp-dark-teal flex-1">
-        <View className="mt-5 ml-5">
+    <View
+      style={{
+        flex: 1,
 
-        <Text className="text-5xl text-usp-teal-300 font-bold">Home</Text>
-        </View>
-      </View>
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}
+    >
+      <Text className="ml-5 mt-2" variant="displayMedium">
+        Welcome {user?.student?.first_name}
+      </Text>
+    </View>
   );
 }

@@ -1,18 +1,26 @@
-import { useContext, createContext, type PropsWithChildren } from "react";
+import {
+  useContext,
+  createContext,
+  type PropsWithChildren,
+  useState,
+} from "react";
 import { useStorageState } from "../hooks/useStorageState";
 import * as Device from "expo-device";
 import axios from "axios";
+import { UserData } from "@/api/interfaces";
 
 const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
   session?: string | null;
   isLoading: boolean;
+  user?: UserData | null;
 }>({
   signIn: async () => {},
   signOut: () => {},
   session: null,
   isLoading: false,
+  user: null,
 });
 
 // This hook can be used to access the user info.
@@ -28,6 +36,7 @@ export function useSession() {
 }
 
 export function SessionProvider({ children }: PropsWithChildren) {
+  const [user, setUser] = useState<UserData | null>(null);
   const [[isLoading, session], setSession] = useStorageState("session");
   const device_name = Device.modelName;
 
@@ -46,6 +55,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         "Authorization"
       ] = `Bearer ${response.data.token}`;
       await setSession(response.data.token);
+      setUser(response.data.user);
       return response;
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
@@ -69,6 +79,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
         signOut,
         session,
         isLoading,
+        user,
       }}
     >
       {children}

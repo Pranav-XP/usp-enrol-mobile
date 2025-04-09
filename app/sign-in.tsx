@@ -26,8 +26,8 @@ export default function SignIn() {
     setError(null); // Reset error before making a request
 
     try {
-      const response = await signIn(email, password); // Call the signIn function
-      console.log("Login successful: ", response.status);
+      const response = await signIn(email, password);
+      console.log(JSON.stringify(response.data, null, 2));
 
       // Redirect to home screen after successful login
       router.replace("/");
@@ -71,6 +71,8 @@ export default function SignIn() {
           USPEnrol
         </Text>
 
+        {error && <Text className="text-red-500 mb-2 font-bold">{error}</Text>}
+
         <TextInput
           placeholder="Enter your email"
           label={"Email"}
@@ -78,6 +80,8 @@ export default function SignIn() {
             marginTop: 10,
             width: "80%",
           }}
+          value={email}
+          onChangeText={setEmail}
         />
         <TextInput
           label="Password"
@@ -87,6 +91,8 @@ export default function SignIn() {
             marginBottom: 10,
             width: "80%",
           }}
+          value={password}
+          onChangeText={setPassword}
           right={
             <TextInput.Icon
               icon={passwordVisible ? "eye-off" : "eye"}
@@ -94,7 +100,12 @@ export default function SignIn() {
             />
           }
         ></TextInput>
-        <Button style={{ width: "80%" }} mode="contained">
+        <Button
+          onPress={handleSignIn}
+          loading={loading}
+          style={{ width: "80%" }}
+          mode="contained"
+        >
           Login
         </Button>
       </KeyboardAvoidingView>

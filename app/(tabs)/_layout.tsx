@@ -24,21 +24,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#008C95",
-        tabBarInactiveTintColor: Colors.light.primary,
-        headerShown: false,
-        animation: "none",
-        tabBarStyle: {
-          backgroundColor: Colors.teal[100],
-          borderRadius: 50,
-          marginHorizontal: 20,
-          marginBottom: 20,
-          height: 60,
-          position: "absolute",
-          overflow: "hidden",
-          borderWidth: 1,
-          borderColor: Colors.darkTeal[500],
-        },
+        headerShown: true,
       }}
     >
       <Tabs.Screen
