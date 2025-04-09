@@ -14,8 +14,8 @@
         "dark": "./assets/images/dark-icon.png",
         "light": "./assets/images/light-icon.png",
         "tinted": "./assets/images/tinted-i.png"
-    }
-  },
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -42,7 +42,8 @@
           }
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,25 +1,24 @@
+import { useStorageState } from '@/hooks/useStorageState';
 import axios from 'axios';
-import { useSession } from '../context/ctx';
 
-const API_URL = 'http://127.0.0.1:8000/api';
+const baseURL = 'https://intimate-buzzard-purely.ngrok-free.app';
 
-const axiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-});
+// Function to create an Axios instance with the provided token
+const createAuthAxiosInstance = () => {
+  const instance = axios.create({
+    baseURL: baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-// Attach the token automatically to requests
-axiosInstance.interceptors.request.use(async (config) => {
-  const { session } = useSession(); 
-  if (session) {
-    config.headers.Authorization = `Bearer ${session}`;
-  }else{
-    config.headers.Authorization = ``;
+  const token = useStorageState('session');
+
+  if (token) {
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
-  return config;
-});
 
-export default axiosInstance;
+  return instance;
+};
+
+export default createAuthAxiosInstance;
