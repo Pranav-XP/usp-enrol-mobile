@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Text, Button } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function Index() {
+export default function Profile() {
   const insets = useSafeAreaInsets();
   const { user, signOut } = useSession();
 
@@ -11,7 +11,7 @@ export default function Index() {
     <View
       style={{
         flex: 1,
-        alignItems: "center",
+        paddingTop: insets.top,
         paddingBottom: insets.bottom,
         paddingLeft: insets.left,
         paddingRight: insets.right,

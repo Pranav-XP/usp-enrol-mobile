@@ -1,8 +1,18 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Redirect, Tabs } from "expo-router";
 import { useSession } from "../../context/ctx";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { Colors } from "@/constants/colors";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, BottomNavigation } from "react-native-paper";
+
+import { CommonActions } from "@react-navigation/native";
+import Index from ".";
+import MyProgram from "./my-program";
+import Fees from "./fees";
+import Profile from "./profile";
+import Grades from "./grades";
+
+const Tab = createBottomTabNavigator();
 
 export default function TabLayout() {
   const { session, isLoading } = useSession();
@@ -22,48 +32,107 @@ export default function TabLayout() {
 
   // This layout can be deferred because it's not the root layout.
   return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
       }}
+      tabBar={({ navigation, state, descriptors, insets }) => (
+        <BottomNavigation.Bar
+          navigationState={state}
+          safeAreaInsets={insets}
+          onTabPress={({ route, preventDefault }) => {
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
+
+            if (event.defaultPrevented) {
+              preventDefault();
+            } else {
+              navigation.dispatch({
+                ...CommonActions.navigate(route.name, route.params),
+                target: state.key,
+              });
+            }
+          }}
+          renderIcon={({ route, focused, color }) => {
+            const { options } = descriptors[route.key];
+            if (options.tabBarIcon) {
+              return options.tabBarIcon({ focused, color, size: 24 });
+            }
+
+            return null;
+          }}
+          getLabelText={({ route }) => {
+            const { options } = descriptors[route.key];
+            const label =
+              options.tabBarLabel !== undefined
+                ? options.tabBarLabel
+                : options.title !== undefined
+                ? options.title
+                : route.title;
+
+            return label;
+          }}
+        />
+      )}
     >
-      <Tabs.Screen
+      <Tab.Screen
         name="index"
+        component={Index}
         options={{
           title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
         }}
       />
 
-      <Tabs.Screen
+      <Tab.Screen
         name="my-program"
+        component={MyProgram}
         options={{
-          title: "My Programme",
+          title: "Courses",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="school" size={size} color={color} />
+            <MaterialCommunityIcons name="school" size={size} color={color} />
           ),
         }}
       />
-      <Tabs.Screen
+      <Tab.Screen
+        name="grades"
+        component={Grades}
+        options={{
+          title: "Grades",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="format-list-bulleted"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="fees"
+        component={Fees}
         options={{
           title: "Fees",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="card" size={size} color={color} />
+            <MaterialCommunityIcons name="receipt" size={size} color={color} />
           ),
         }}
       />
-      <Tabs.Screen
+      <Tab.Screen
         name="profile"
+        component={Profile}
         options={{
           title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
+            <MaterialCommunityIcons name="account" size={size} color={color} />
           ),
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }

@@ -5,7 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Button, TextInput, Text } from "react-native-paper";
+import { Button, TextInput, Text, HelperText } from "react-native-paper";
 import { useState } from "react";
 import { useSession } from "../context/ctx";
 import { router } from "expo-router";
@@ -71,7 +71,11 @@ export default function SignIn() {
           USPEnrol
         </Text>
 
-        {error && <Text className="text-red-500 mb-2 font-bold">{error}</Text>}
+        {error && (
+          <HelperText type="error">
+            Invalid email or password. Please try again.
+          </HelperText>
+        )}
 
         <TextInput
           placeholder="Enter your email"

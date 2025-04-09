@@ -2,7 +2,7 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function MyProgram() {
+export default function Grades() {
   const insets = useSafeAreaInsets();
   return (
     <View
@@ -15,7 +15,7 @@ export default function MyProgram() {
       }}
     >
       <Text className="ml-5 mt-2" variant="displaySmall">
-        Bachelors of Software Engineering
+        Grades
       </Text>
     </View>
   );
