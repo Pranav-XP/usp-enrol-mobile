@@ -29,3 +29,17 @@ export interface UserData {
     };
   };
 }
+
+export interface Course {
+  id: number;
+  course_code: string;
+  course_title: string;
+  year: number;
+  description: string;
+  cost: string;
+  semester_1: number;
+  semester_2: number;
+  created_at: string;
+  updated_at: string;
+  status?: string; // optional, since it might not be there
+}
