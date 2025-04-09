@@ -17,7 +17,7 @@ export default function Profile() {
         paddingRight: insets.right,
       }}
     >
-      <Text className="ml-5 mt-2" variant="displayMedium">
+      <Text className="ml-5 mt-2" variant="titleLarge">
         Welcome {user?.student?.first_name}
       </Text>
       <View className="justify-center">

@@ -16,7 +16,7 @@ export default function Index() {
         paddingRight: insets.right,
       }}
     >
-      <Text className="ml-5 mt-2" variant="displayMedium">
+      <Text className="ml-5 mt-2" variant="displaySmall">
         Welcome {user?.student?.first_name}
       </Text>
     </View>

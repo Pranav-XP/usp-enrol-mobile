@@ -14,7 +14,7 @@ export default function Fees() {
         paddingRight: insets.right,
       }}
     >
-      <Text className="ml-5 mt-2" variant="displaySmall">
+      <Text className="ml-5 mt-2" variant="titleLarge">
         Recent Invoice
       </Text>
     </View>

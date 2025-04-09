@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import "./globals.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import {
   MD3DarkTheme,
@@ -33,6 +34,8 @@ const { LightTheme, DarkTheme } = adaptNavigationTheme({
 const CombinedDefaultTheme = merge(LightTheme, customLightTheme);
 const CombinedDarkTheme = merge(DarkTheme, customDarkTheme);
 
+const queryClient = new QueryClient();
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
@@ -40,18 +43,20 @@ export default function RootLayout() {
     colorScheme === "dark" ? CombinedDarkTheme : CombinedDefaultTheme;
 
   return (
-    <SessionProvider>
-      <PaperProvider theme={paperTheme}>
-        <ThemeProvider value={paperTheme}>
-          <SafeAreaProvider>
-            <Stack
-              screenOptions={{
-                headerShown: false,
-              }}
-            />
-          </SafeAreaProvider>
-        </ThemeProvider>
-      </PaperProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider>
+        <PaperProvider theme={paperTheme}>
+          <ThemeProvider value={paperTheme}>
+            <SafeAreaProvider>
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                }}
+              />
+            </SafeAreaProvider>
+          </ThemeProvider>
+        </PaperProvider>
+      </SessionProvider>
+    </QueryClientProvider>
   );
 }

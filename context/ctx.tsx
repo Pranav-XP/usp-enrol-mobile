@@ -8,6 +8,7 @@ import { useStorageState } from "../hooks/useStorageState";
 import * as Device from "expo-device";
 import axios from "axios";
 import { UserData } from "@/api/interfaces";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AuthContext = createContext<{
   signIn: (email: string, password: string) => Promise<void>;
@@ -39,6 +40,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<UserData | null>(null);
   const [[isLoading, session], setSession] = useStorageState("session");
   const device_name = Device.modelName;
+  const queryClient = useQueryClient();
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -56,6 +58,8 @@ export function SessionProvider({ children }: PropsWithChildren) {
       ] = `Bearer ${response.data.token}`;
       await setSession(response.data.token);
       setUser(response.data.user);
+      queryClient.invalidateQueries();
+      console.log("React Query Reset");
       return response;
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
@@ -66,6 +70,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const signOut = async () => {
     try {
       await setSession(null); // Clear session storage
+      queryClient.invalidateQueries();
       axios.defaults.headers.common["Authorization"] = ``; // Remove auth header
     } catch (error) {
       console.error("Logout error:", error);

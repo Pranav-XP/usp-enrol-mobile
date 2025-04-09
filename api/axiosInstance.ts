@@ -1,10 +1,9 @@
-import { useStorageState } from '@/hooks/useStorageState';
 import axios from 'axios';
 
 const baseURL = 'https://intimate-buzzard-purely.ngrok-free.app';
 
 // Function to create an Axios instance with the provided token
-const createAuthAxiosInstance = () => {
+const instance = (token: string | null) => {
   const instance = axios.create({
     baseURL: baseURL,
     headers: {
@@ -12,8 +11,7 @@ const createAuthAxiosInstance = () => {
     },
   });
 
-  const token = useStorageState('session');
-
+  // Add the Authorization header if a token is provided
   if (token) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
@@ -21,4 +19,4 @@ const createAuthAxiosInstance = () => {
   return instance;
 };
 
-export default createAuthAxiosInstance;
+export default instance;

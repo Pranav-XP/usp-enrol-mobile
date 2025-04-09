@@ -14,7 +14,7 @@ export default function Grades() {
         paddingRight: insets.right,
       }}
     >
-      <Text className="ml-5 mt-2" variant="displaySmall">
+      <Text className="ml-5 mt-2" variant="titleLarge">
         Grades
       </Text>
     </View>
