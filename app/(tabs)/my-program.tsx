@@ -1,10 +1,10 @@
 import { getProgram } from "@/api/services/student";
 import { Colors } from "@/constants/colors";
 import { useSession } from "@/context/ctx";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { useCallback, useState } from "react";
+import { RefreshControl, ScrollView, View } from "react-native";
 import {
   Text,
   List,
@@ -27,8 +27,10 @@ type Course = {
 export default function MyProgram() {
   const { session } = useSession();
   const [expandedYear, setExpandedYear] = useState<number | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
   const router = useRouter();
   const theme = useTheme();
+  const queryClient = useQueryClient();
 
   const handleAccordionPress = (year: number) =>
     setExpandedYear((prev) => (prev === year ? null : year));
@@ -39,6 +41,19 @@ export default function MyProgram() {
     queryKey: ["myProgram"],
     queryFn: () => getProgram(session),
   });
+
+  // Function to handle refresh action
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+
+    // Invalidate the query to trigger a refetch
+    await queryClient.invalidateQueries({ queryKey: ["myProgram"] });
+
+    // Optionally, you can refetch here manually if you want to trigger an immediate refetch
+    // await queryClient.refetchQueries(["myProgram"]);
+
+    setRefreshing(false); // Stop the loading spinner
+  }, [queryClient]);
 
   if (isLoading) {
     // Show loading indicator
@@ -114,6 +129,9 @@ export default function MyProgram() {
 
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
       style={{
         flex: 1,
         paddingTop: insets.top,
