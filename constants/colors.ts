@@ -47,7 +47,11 @@ export const Colors = {
     },
     "surfaceDisabled": "rgba(25, 28, 29, 0.12)",
     "onSurfaceDisabled": "rgba(25, 28, 29, 0.38)",
-    "backdrop": "rgba(41, 50, 51, 0.4)"
+    "backdrop": "rgba(41, 50, 51, 0.4)",
+    "valid": "rgb(56, 107, 1)",
+    "onValid": "rgb(255, 255, 255)",
+    "validContainer": "rgb(183, 244, 129)",
+    "onValidContainer": "rgb(13, 32, 0)"
   },
   dark: {
     "primary": "rgb(77, 217, 228)",
@@ -89,6 +93,10 @@ export const Colors = {
     },
     "surfaceDisabled": "rgba(224, 227, 227, 0.12)",
     "onSurfaceDisabled": "rgba(224, 227, 227, 0.38)",
-    "backdrop": "rgba(41, 50, 51, 0.4)"
+    "backdrop": "rgba(41, 50, 51, 0.4)",
+    "valid": "rgb(156, 215, 105)",
+    "onValid": "rgb(26, 55, 0)",
+    "validContainer": "rgb(40, 80, 0)",
+    "onValidContainer": "rgb(183, 244, 129)"
   },
 };

@@ -1,7 +1,7 @@
 import { CompletedCourse } from "@/api/interfaces";
 import React from "react";
 import { View } from "react-native";
-import { List, Text } from "react-native-paper";
+import { List, Text, useTheme } from "react-native-paper";
 
 interface PrerequisitesSectionProps {
   prerequisiteGroups: (string | string[])[];
@@ -12,6 +12,7 @@ export default function PrerequisitesSection({
   prerequisiteGroups,
   completedCourses,
 }: PrerequisitesSectionProps) {
+  const theme = useTheme();
   // Check if a prerequisite group is met
   const isGroupMet = (group: string | string[]) => {
     if (Array.isArray(group)) {
@@ -42,12 +43,12 @@ export default function PrerequisitesSection({
             <List.Item
               key={index}
               title={title}
-              titleStyle={{ fontSize: 14 }}
+              titleStyle={{}}
               left={(props) => (
                 <List.Icon
                   {...props}
-                  icon={met ? "book-check" : "book-remove"}
-                  color={met ? "#4CAF50" : "#FF5252"} // green or red
+                  icon={met ? "check-circle-outline" : "close-circle-outline"}
+                  color={met ? theme.colors.valid : theme.colors.error} // green or red
                 />
               )}
             />
@@ -57,9 +58,16 @@ export default function PrerequisitesSection({
         <List.Item
           title="No course prerequisites required"
           left={(props) => (
-            <List.Icon {...props} icon="check-circle-outline" color="#ccc" />
+            <List.Icon
+              {...props}
+              icon="check-circle-outline"
+              color={theme.colors.valid}
+            />
           )}
-          titleStyle={{ fontSize: 14, color: "#888" }}
+          titleStyle={{
+            fontSize: 14,
+            color: theme.colors.onSecondaryContainer,
+          }}
         />
       )}
     </View>
