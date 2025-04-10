@@ -74,7 +74,6 @@ export default function MyProgram() {
   }
 
   const courses: Course[] = data?.student.program.courses ?? [];
-  console.log(courses);
 
   const groupedByYear: Record<number, Course[]> = courses.reduce(
     (acc: Record<number, Course[]>, course: Course) => {

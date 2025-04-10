@@ -1,4 +1,3 @@
-import { useSession } from "@/context/ctx";
 import instance from "./axiosInstance";
 
 
@@ -25,3 +24,12 @@ export const getProgram = async (session:string) => {
     const response = await api.get("/api/student/completed-courses");
     return response.data;
   };
+
+  // Enroll in courses
+export const enrollCourses = async (session: string, courseIds: number[]) => {
+  const api = instance(session);
+  const response = await api.post("/api/enrol", {
+    course_ids: courseIds,
+  });
+  return response.data;
+};
