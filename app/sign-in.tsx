@@ -5,12 +5,17 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { Button, TextInput, Text, HelperText } from "react-native-paper";
+import {
+  Button,
+  TextInput,
+  Text,
+  HelperText,
+  useTheme,
+} from "react-native-paper";
 import { useState } from "react";
 import { useSession } from "../context/ctx";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Colors } from "@/constants/colors";
 
 export default function SignIn() {
   const insets = useSafeAreaInsets();
@@ -20,6 +25,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const theme = useTheme();
 
   const handleSignIn = async () => {
     setLoading(true);
@@ -27,7 +33,6 @@ export default function SignIn() {
 
     try {
       const response = await signIn(email, password);
-      console.log(JSON.stringify(response.data, null, 2));
 
       // Redirect to home screen after successful login
       router.replace("/");
@@ -64,7 +69,7 @@ export default function SignIn() {
         <Text
           variant="displayLarge"
           style={{
-            color: Colors.light.primary,
+            color: theme.colors.primary,
             fontWeight: "bold",
           }}
         >
@@ -107,7 +112,7 @@ export default function SignIn() {
         <Button
           onPress={handleSignIn}
           loading={loading}
-          style={{ width: "80%" }}
+          style={{ width: "80%", marginTop: 10 }}
           mode="contained"
         >
           Login

@@ -59,7 +59,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
       await setSession(response.data.token);
       setUser(response.data.user);
       queryClient.invalidateQueries();
-      console.log("React Query Reset");
+
       return response;
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);

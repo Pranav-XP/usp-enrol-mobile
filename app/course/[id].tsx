@@ -69,8 +69,6 @@ export default function CourseDetails() {
 
   const courseData = results[0].data.course;
   const completedCourses = results[1].data.completed_courses;
-  console.log(courseData);
-  console.log(completedCourses);
 
   return (
     <View

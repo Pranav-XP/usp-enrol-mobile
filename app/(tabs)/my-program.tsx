@@ -12,6 +12,7 @@ import {
   ProgressBar,
   ActivityIndicator,
   IconButton,
+  useTheme,
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -27,6 +28,7 @@ export default function MyProgram() {
   const { session } = useSession();
   const [expandedYear, setExpandedYear] = useState<number | null>(null);
   const router = useRouter();
+  const theme = useTheme();
 
   const handleAccordionPress = (year: number) =>
     setExpandedYear((prev) => (prev === year ? null : year));
@@ -72,6 +74,7 @@ export default function MyProgram() {
   }
 
   const courses: Course[] = data?.student.program.courses ?? [];
+  console.log(courses);
 
   const groupedByYear: Record<number, Course[]> = courses.reduce(
     (acc: Record<number, Course[]>, course: Course) => {
@@ -87,14 +90,17 @@ export default function MyProgram() {
   const getIconByStatus = (status: string) => {
     switch (status) {
       case "enrolled":
-        return { icon: "clock-outline", color: "yellow" }; // Yellow for enrolled
+        return { icon: "timer-sand", color: theme.colors.onSurface }; // Yellow for enrolled
       case "completed":
-        return { icon: "check-bold", color: "green" }; // Green for completed
+        return { icon: "check-circle-outline", color: theme.colors.valid }; // Green for completed
       case "failed":
-        return { icon: "alert-circle", color: "red" }; // Red for failed
+        return { icon: "alert-circle", color: theme.colors.error }; // Red for failed
       case "not_enrolled":
       default:
-        return { icon: "close-circle-outline", color: "gray" }; // Default for not_enrolled
+        return {
+          icon: "close-circle-outline",
+          color: theme.colors.onSurfaceVariant,
+        };
     }
   };
 
@@ -154,13 +160,7 @@ export default function MyProgram() {
                   title={`${course.course_code}`}
                   description={course.course_title}
                   right={(props) => {
-                    return (
-                      <IconButton
-                        {...props}
-                        icon={"chevron-right"}
-                        onPress={() => console.log("Pressed")}
-                      />
-                    );
+                    return <IconButton {...props} icon={"chevron-right"} />;
                   }}
                   left={(props) => {
                     const { icon, color } = getIconByStatus(course.status); // Destructure the icon and color

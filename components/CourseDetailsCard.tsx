@@ -20,6 +20,11 @@ const CourseDetailsCard = ({
   return (
     <View>
       <Card style={{ marginHorizontal: 10, marginTop: 10, padding: 0 }}>
+        <Card.Cover
+          source={{
+            uri: "https://scontent.fsuv3-1.fna.fbcdn.net/v/t39.30808-6/452946980_1081673177292375_6611936189533136237_n.jpg?stp=dst-jpg_p180x540_tt6&_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=C7S3R9yntEEQ7kNvwEezx0O&_nc_oc=AdltVF8VoGc3gpLUgPvbgDmhsBdOP8ToPAUgXZpe0v8NaZMGcK0_2VPN_GhzKMuboR0&_nc_zt=23&_nc_ht=scontent.fsuv3-1.fna&_nc_gid=soXA5U_owTrWkg9K3XV5cA&oh=00_AfHlXdD2Za494ro3SW4RiZUkB1-s-Xg1MdKjfvV6RN-j1Q&oe=67FD2469",
+          }}
+        />
         <Card.Title
           titleVariant="titleLarge"
           titleNumberOfLines={3}
