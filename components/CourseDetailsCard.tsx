@@ -1,9 +1,22 @@
-import { Course } from "@/api/interfaces";
+import { CompletedCourse, Course } from "@/api/interfaces";
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { Card, Text, Button, IconButton } from "react-native-paper";
+import { View } from "react-native";
+import { Card, Text, IconButton } from "react-native-paper";
+import PrerequisitesSection from "./PrerequisitesSection";
 
-const CourseDetailsCard = ({ course }: { course: Course }) => {
+interface CourseDetailsCardProps {
+  course: Course; // This will be the main course data
+  completed_courses: CompletedCourse[]; // This will be the list of completed courses
+}
+
+const CourseDetailsCard = ({
+  course,
+  completed_courses,
+}: CourseDetailsCardProps) => {
+  if (!course) {
+    return <Text>Course data not available.</Text>;
+  }
+
   return (
     <View>
       <Card style={{ marginHorizontal: 10, marginTop: 10, padding: 0 }}>
@@ -46,6 +59,17 @@ const CourseDetailsCard = ({ course }: { course: Course }) => {
                 Unavailable in Semester 2
               </Text>
             </View>
+          )}
+          {course.prerequisites && course.prerequisites.length > 0 ? (
+            <PrerequisitesSection
+              prerequisiteGroups={course.prerequisites[0].prerequisite_groups}
+              completedCourses={completed_courses}
+            />
+          ) : (
+            <PrerequisitesSection
+              prerequisiteGroups={[]}
+              completedCourses={completed_courses}
+            />
           )}
         </Card.Content>
       </Card>

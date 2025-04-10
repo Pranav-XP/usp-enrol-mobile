@@ -13,3 +13,9 @@ export const getProgram = async (session:string) => {
     const response = await api.get(`/api/course/${id}`);
     return response.data;
   };
+
+  export const getCompletedCourses = async (session:string) => {
+    const api = instance(session);
+    const response = await api.get("/api/student/completed-courses");
+    return response.data;
+  };

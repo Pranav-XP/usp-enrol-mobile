@@ -1,8 +1,8 @@
-import { getCourseDetails } from "@/api/api";
+import { getCompletedCourses, getCourseDetails } from "@/api/api";
 import CourseDetailsCard from "@/components/CourseDetailsCard";
 import { useSession } from "@/context/ctx";
-import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams } from "expo-router";
+import { useQueries } from "@tanstack/react-query";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { View } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -11,10 +11,28 @@ export default function CourseDetails() {
   const insets = useSafeAreaInsets();
   const { session } = useSession();
   const { id } = useLocalSearchParams();
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["courseDetails", id],
-    queryFn: () => getCourseDetails(session, id),
+  const router = useRouter();
+
+  if (!session) {
+    // Replace `router.push` with your routing method
+    router.push("/sign-in"); // Redirect to the login page
+    return null; // Prevent further rendering of the page
+  }
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["courseDetails", id],
+        queryFn: () => getCourseDetails(session, id),
+      },
+      {
+        queryKey: ["completedCourses"],
+        queryFn: () => getCompletedCourses(session),
+      },
+    ],
   });
+
+  const isLoading = results.some((q) => q.isLoading);
+  const isError = results.some((q) => q.isError);
 
   if (isLoading) {
     // Show loading indicator
@@ -49,6 +67,11 @@ export default function CourseDetails() {
     );
   }
 
+  const courseData = results[0].data.course;
+  const completedCourses = results[1].data.completed_courses;
+  console.log(courseData);
+  console.log(completedCourses);
+
   return (
     <View
       style={{
@@ -59,7 +82,10 @@ export default function CourseDetails() {
         paddingRight: insets.right,
       }}
     >
-      <CourseDetailsCard course={data.course} />
+      <CourseDetailsCard
+        course={courseData}
+        completed_courses={completedCourses}
+      />
     </View>
   );
 }

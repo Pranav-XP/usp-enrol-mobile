@@ -8,6 +8,7 @@ const instance = (token: string | null) => {
     baseURL: baseURL,
     headers: {
       'Content-Type': 'application/json',
+      'Accept':'application/json',
     },
   });
 

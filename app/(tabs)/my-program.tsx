@@ -129,7 +129,7 @@ export default function MyProgram() {
         }}
         variant="labelLarge"
       >
-        {progress * 100}% completed
+        {Math.round(progress * 100)}% completed
       </Text>
       <ProgressBar
         progress={progress} // Adjust the color as needed
