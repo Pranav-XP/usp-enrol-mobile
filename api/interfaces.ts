@@ -53,8 +53,22 @@ export interface Course {
   status?:string;
 }
 
+export interface StudentCourse {
+  id: number;
+  course_code: string;
+  course_title: string;
+  year: number;
+  description: string;
+  cost: string; // Assuming it's a string but can be a number if needed
+  semester_1: 0 | 1; // 0 or 1 for availability in semester 1
+  semester_2: 0 | 1; // 0 or 1 for availability in semester 2
+  created_at: string;
+  updated_at: string;
+  pivot: CoursePivot; // The pivot information for the course
+}
+
 // Define Pivot interface
-export interface CourseStatusPivot {
+export interface CoursePivot {
   student_id: number;
   course_id: number;
   grade: string;
@@ -68,7 +82,7 @@ export interface CompletedCourse {
   course_id: number;
   course_code: string;
   course_title: string;
-  pivot: CourseStatusPivot;
+  pivot: CoursePivot;
 }
 
 // Define CourseDetailsProps interface that includes completed_courses
