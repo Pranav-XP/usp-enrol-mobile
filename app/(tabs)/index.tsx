@@ -2,7 +2,7 @@ import { getProgram } from "@/api/api";
 import { useSession } from "@/context/ctx";
 import { useQuery } from "@tanstack/react-query";
 import { ScrollView, View } from "react-native";
-import { Portal, Text } from "react-native-paper";
+import { ActivityIndicator, Portal, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EnrolledCourses from "@/components/EnrolledCourses";
 import { Course, StudentCourse } from "@/api/interfaces";
@@ -21,9 +21,20 @@ export default function Index() {
     queryFn: () => getProgram(session),
   });
 
-  // Show loading state for the query
   if (isLoading) {
-    return <Text>Loading program...</Text>;
+    // Show loading indicator
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator size="large" />
+        <Text>Loading the course...</Text>
+      </View>
+    );
   }
 
   // Show error state for the query
