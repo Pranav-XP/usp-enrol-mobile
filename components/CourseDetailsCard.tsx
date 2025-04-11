@@ -1,7 +1,7 @@
 import { CompletedCourse, Course } from "@/api/interfaces";
 import React from "react";
 import { View } from "react-native";
-import { Card, Text, IconButton } from "react-native-paper";
+import { Card, Text, IconButton, useTheme } from "react-native-paper";
 import PrerequisitesSection from "./PrerequisitesSection";
 
 interface CourseDetailsCardProps {
@@ -17,6 +17,8 @@ const CourseDetailsCard = ({
     return <Text>Course data not available.</Text>;
   }
 
+  const theme = useTheme();
+
   return (
     <View>
       <Card style={{ marginHorizontal: 10, marginTop: 10, padding: 0 }}>
@@ -29,8 +31,14 @@ const CourseDetailsCard = ({
           titleVariant="titleLarge"
           titleNumberOfLines={3}
           title={course.course_title}
+          titleStyle={{ fontWeight: "bold", marginTop: 5, marginBottom: 5 }}
           subtitleVariant="labelLarge"
           subtitle={course.course_code}
+          subtitleStyle={{
+            marginVertical: 5,
+            fontWeight: "bold",
+            color: theme.colors.onPrimaryContainer,
+          }}
         />
         <Card.Content>
           <Text variant="bodyLarge">{course.description}</Text>

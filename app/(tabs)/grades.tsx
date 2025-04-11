@@ -3,7 +3,7 @@ import GradeList from "@/components/GradesList";
 import { useSession } from "@/context/ctx";
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Grades() {
@@ -58,9 +58,22 @@ export default function Grades() {
       }}
       className="mx-2"
     >
-      <Text className="ml-5 mt-2" variant="titleLarge">
+      <Text className="ml-5 mt-2 mb-2" variant="titleLarge">
         Grades
       </Text>
+      <Card mode="elevated" style={{ marginBottom: 16, padding: 10 }}>
+        <Card.Content style={{ alignItems: "center" }}>
+          <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
+            Cumulative GPA
+          </Text>
+          <Text
+            variant="headlineMedium"
+            style={{ marginTop: 4, fontWeight: "bold" }}
+          >
+            {data.total_gpa?.toFixed(2)}
+          </Text>
+        </Card.Content>
+      </Card>
       {/* Render the grades list once data is loaded */}
       <GradeList grades={data?.grades} />
     </View>

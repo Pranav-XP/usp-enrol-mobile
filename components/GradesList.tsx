@@ -11,20 +11,43 @@ import {
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+const getLetterGrade = (gpa: number | null | undefined): string => {
+  switch (gpa) {
+    case 4.5:
+      return "A+";
+    case 4.0:
+      return "A";
+    case 3.5:
+      return "B+";
+    case 3.0:
+      return "B";
+    default:
+      return "N/A";
+  }
+};
+
 const GradeList = ({ grades }: { grades: Grade[] }) => {
-  const [filterType, setFilterType] = useState("semester");
-  const [filterValue, setFilterValue] = useState<number | null>(1);
+  const [filterType, setFilterType] = useState("semester"); // Filter type: semester or year
+  const [filterValue, setFilterValue] = useState<number | null>(1); // Default to semester 1 or year 1, null means no filter
   const [filteredGrades, setFilteredGrades] = useState(grades);
   const [years, setYears] = useState<number[]>([]);
-  const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets(); // Get safe area insets
 
-  // Extract unique years
+  const getLetterGrade = (gpa: number | null | undefined): string => {
+    if (gpa === 4.5) return "A+";
+    if (gpa === 4.0) return "A";
+    if (gpa === 3.5) return "B+";
+    if (gpa === 3.0) return "B";
+    return "N/A";
+  };
+
+  // Extract unique years from the data
   useEffect(() => {
     const uniqueYears = Array.from(new Set(grades.map((grade) => grade.year)));
     setYears(uniqueYears);
   }, [grades]);
 
-  // Apply filters
+  // Apply the filter when the filter type or value changes
   useEffect(() => {
     const filtered = grades.filter((item) => {
       if (filterType === "semester" && filterValue !== null) {
@@ -37,12 +60,6 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
     setFilteredGrades(filtered);
   }, [filterType, filterValue, grades]);
 
-  // Calculate average GPA
-  const totalGpa =
-    filteredGrades.reduce((sum, g) => sum + (g.gpa || 0), 0) /
-    (filteredGrades.filter((g) => g.gpa !== null && g.gpa !== undefined)
-      .length || 1);
-
   const renderItem = (item: Grade) => (
     <Card mode="elevated" style={{ marginBottom: 10 }} key={item.course_id}>
       <Card.Content
@@ -53,14 +70,19 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
         }}
       >
         <Title>{item.course_code}</Title>
-        <Paragraph>{item.gpa ? `GPA: ${item.gpa}` : "GPA: N/A"}</Paragraph>
+        <Paragraph>
+          Grade:{" "}
+          {item.gpa !== null && item.gpa !== undefined
+            ? getLetterGrade(Number(item.gpa))
+            : "N/A"}
+        </Paragraph>
       </Card.Content>
     </Card>
   );
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Filter Selection */}
+      {/* Filter Selection (By Semester or By Year) */}
       <SegmentedButtons
         value={filterType}
         onValueChange={setFilterType}
@@ -71,26 +93,30 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
         style={{ marginBottom: 10, marginTop: 5 }}
       />
 
-      {/* Filter Options */}
+      {/* Filter Options for Semester or Year */}
       {filterType === "semester" ? (
         <View
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
             marginBottom: 16,
-            justifyContent: "space-between",
+            justifyContent: "space-between", // Evenly spaces the chips
           }}
         >
-          {[1, 2].map((sem) => (
-            <Chip
-              key={sem}
-              style={{ flex: 1, marginHorizontal: 4 }}
-              selected={filterValue === sem}
-              onPress={() => setFilterValue(filterValue === sem ? null : sem)}
-            >
-              Semester {sem}
-            </Chip>
-          ))}
+          <Chip
+            style={{ flex: 1, marginHorizontal: 4 }} // Equal space for each chip
+            selected={filterValue === 1}
+            onPress={() => setFilterValue(filterValue === 1 ? null : 1)} // Deselect if already selected
+          >
+            Semester 1
+          </Chip>
+          <Chip
+            style={{ flex: 1, marginHorizontal: 4 }} // Equal space for each chip
+            selected={filterValue === 2}
+            onPress={() => setFilterValue(filterValue === 2 ? null : 2)} // Deselect if already selected
+          >
+            Semester 2
+          </Chip>
         </View>
       ) : (
         <View
@@ -106,7 +132,7 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
               style={{ flex: 1, marginHorizontal: 4 }}
               key={year}
               selected={filterValue === year}
-              onPress={() => setFilterValue(filterValue === year ? null : year)}
+              onPress={() => setFilterValue(filterValue === year ? null : year)} // Deselect if already selected
             >
               Year {year}
             </Chip>
@@ -114,17 +140,7 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
         </View>
       )}
 
-      {/* GPA Summary */}
-      {filteredGrades.length > 0 && (
-        <Card style={{ marginBottom: 10 }}>
-          <Card.Content>
-            <Title>Total GPA</Title>
-            <Paragraph>{totalGpa.toFixed(2)}</Paragraph>
-          </Card.Content>
-        </Card>
-      )}
-
-      {/* Grade Cards */}
+      {/* Check if filteredGrades has any data */}
       {filteredGrades.length === 0 ? (
         <Text>No courses</Text>
       ) : (
