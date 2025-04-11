@@ -47,7 +47,7 @@ export default function MyProgram() {
     setRefreshing(true);
 
     // Invalidate the query to trigger a refetch
-    await queryClient.invalidateQueries({ queryKey: ["myProgram"] });
+    await queryClient.invalidateQueries();
 
     // Optionally, you can refetch here manually if you want to trigger an immediate refetch
     // await queryClient.refetchQueries(["myProgram"]);
