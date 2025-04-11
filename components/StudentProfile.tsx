@@ -1,61 +1,73 @@
 import { Student } from "@/api/interfaces";
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
-import { Card, Title, Paragraph, Divider, useTheme } from "react-native-paper";
+import { View, ScrollView } from "react-native";
+import {
+  Card,
+  Title,
+  Paragraph,
+  Divider,
+  useTheme,
+  Avatar,
+} from "react-native-paper";
 
 const StudentProfile = ({ student }: { student: Student }) => {
   const theme = useTheme();
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View style={{ padding: 20 }}>
-        {/* Student Name Card */}
-        <Card style={{ marginBottom: 20 }}>
-          <Card.Content>
-            <Title>
-              {student.first_name} {student.last_name}
-            </Title>
-            <Paragraph>{student.student_id}</Paragraph>
-            <Paragraph>{student.dob}</Paragraph>
-          </Card.Content>
-        </Card>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, alignItems: "center", padding: 20 }}
+    >
+      <Card
+        style={{
+          width: "100%",
+          borderRadius: 12,
+          paddingVertical: 20,
+          backgroundColor: theme.colors.surface,
+        }}
+      >
+        <View style={{ alignItems: "center", marginBottom: 20 }}>
+          <Avatar.Icon
+            size={80}
+            icon="account"
+            style={{ backgroundColor: theme.colors.primary }}
+          />
+        </View>
 
-        <Divider />
+        <Card.Content style={{ alignItems: "center", marginBottom: 10 }}>
+          <Title>
+            {student.first_name} {student.last_name}
+          </Title>
+          <Paragraph style={{ fontSize: 16, marginBottom: 4 }}>
+            {student.student_id}
+          </Paragraph>
+          <Paragraph style={{ color: "gray" }}>{student.dob}</Paragraph>
+        </Card.Content>
 
-        {/* Student Contact Information */}
-        <Card style={{ marginBottom: 20 }}>
-          <Card.Content>
-            <Title>Contact Information</Title>
-            <Paragraph>Email: {student.email}</Paragraph>
-            <Paragraph>Phone: {student.phone}</Paragraph>
-          </Card.Content>
-        </Card>
+        <Divider style={{ marginVertical: 10 }} />
 
-        <Divider />
+        <Card.Content>
+          <Title style={{ fontSize: 18 }}>Contact Info</Title>
+          <Paragraph>Email: {student.email}</Paragraph>
+          <Paragraph>Phone: {student.phone}</Paragraph>
+        </Card.Content>
 
-        {/* Program Information */}
-        <Card style={{ marginBottom: 20 }}>
-          <Card.Content>
-            <Title>Program Information</Title>
-            <Paragraph>Program Code: {student.program.program_code}</Paragraph>
-            <Paragraph>Program Name: {student.program.name}</Paragraph>
-            <Paragraph>Description: {student.program.description}</Paragraph>
-            <Paragraph>
-              Program Duration: {student.program.duration} years
-            </Paragraph>
-          </Card.Content>
-        </Card>
+        <Divider style={{ marginVertical: 10 }} />
 
-        <Divider />
+        <Card.Content>
+          <Title style={{ fontSize: 18 }}>Program Info</Title>
+          <Paragraph>Code: {student.program.program_code}</Paragraph>
+          <Paragraph>Name: {student.program.name}</Paragraph>
+          <Paragraph>Description: {student.program.description}</Paragraph>
+          <Paragraph>Duration: {student.program.duration} years</Paragraph>
+        </Card.Content>
 
-        {/* Enrollment Information */}
-        <Card style={{ marginBottom: 20 }}>
-          <Card.Content>
-            <Title>Enrollment Information</Title>
-            <Paragraph>Enrollment Year: {student.enrollment_year}</Paragraph>
-          </Card.Content>
-        </Card>
-      </View>
+        <Divider style={{ marginVertical: 10 }} />
+
+        <Card.Content>
+          <Title style={{ fontSize: 18 }}>Enrollment</Title>
+          <Paragraph>Year: {student.enrollment_year}</Paragraph>
+        </Card.Content>
+      </Card>
     </ScrollView>
   );
 };

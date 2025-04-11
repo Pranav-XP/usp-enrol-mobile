@@ -20,7 +20,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pranavdev.USPEnrol"
     },
     "web": {
       "bundler": "metro",
@@ -47,6 +48,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f6adad8f-c1f7-4aaf-b540-e2d33fe61c33"
+      }
     }
   }
 }

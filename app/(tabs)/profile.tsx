@@ -52,6 +52,14 @@ export default function Profile() {
         >
           Error loading data. Please try again.
         </Text>
+        <Button
+          onPress={() => {
+            signOut();
+          }}
+          mode="contained"
+        >
+          Logout
+        </Button>
       </View>
     );
   }

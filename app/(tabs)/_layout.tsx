@@ -8,7 +8,6 @@ import { Text, BottomNavigation } from "react-native-paper";
 import { CommonActions } from "@react-navigation/native";
 import Index from ".";
 import MyProgram from "./my-program";
-import Fees from "./fees";
 import Profile from "./profile";
 import Grades from "./grades";
 
@@ -113,7 +112,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="fees"
         component={Fees}
         options={{
@@ -122,7 +121,7 @@ export default function TabLayout() {
             <MaterialCommunityIcons name="receipt" size={size} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="profile"
         component={Profile}
