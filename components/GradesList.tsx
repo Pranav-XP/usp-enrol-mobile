@@ -1,6 +1,6 @@
 import { Grade } from "@/api/interfaces";
 import React, { useState, useEffect } from "react";
-import { FlatList, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import {
   Text,
   Card,
@@ -9,12 +9,14 @@ import {
   Chip,
   SegmentedButtons,
 } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const GradeList = ({ grades }: { grades: Grade[] }) => {
   const [filterType, setFilterType] = useState("semester"); // Filter type: semester or year
   const [filterValue, setFilterValue] = useState<number | null>(1); // Default to semester 1 or year 1, null means no filter
   const [filteredGrades, setFilteredGrades] = useState(grades);
   const [years, setYears] = useState<number[]>([]);
+  const insets = useSafeAreaInsets(); // Get safe area insets
 
   // Extract unique years from the data
   useEffect(() => {
@@ -35,8 +37,8 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
     setFilteredGrades(filtered);
   }, [filterType, filterValue, grades]);
 
-  const renderItem = ({ item }: { item: Grade }) => (
-    <Card mode="elevated" style={{ marginBottom: 10 }}>
+  const renderItem = (item: Grade) => (
+    <Card mode="elevated" style={{ marginBottom: 10 }} key={item.course_id}>
       <Card.Content
         style={{
           flexDirection: "row",
@@ -51,7 +53,7 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
   );
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {/* Filter Selection (By Semester or By Year) */}
       <SegmentedButtons
         value={filterType}
@@ -90,10 +92,16 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
         </View>
       ) : (
         <View
-          style={{ flexDirection: "row", flexWrap: "wrap", marginBottom: 16 }}
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginBottom: 16,
+            justifyContent: "space-between",
+          }}
         >
           {years.map((year) => (
             <Chip
+              style={{ flex: 1, marginHorizontal: 4 }}
               key={year}
               selected={filterValue === year}
               onPress={() => setFilterValue(filterValue === year ? null : year)} // Deselect if already selected
@@ -108,12 +116,13 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
       {filteredGrades.length === 0 ? (
         <Text>No courses</Text>
       ) : (
-        <FlatList
-          data={filteredGrades}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.course_id.toString()}
-          contentContainerStyle={{ paddingTop: 12 }}
-        />
+        <ScrollView
+          contentContainerStyle={{
+            paddingBottom: insets.bottom,
+          }}
+        >
+          {filteredGrades.map((grade) => renderItem(grade))}
+        </ScrollView>
       )}
     </View>
   );
