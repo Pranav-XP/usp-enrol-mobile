@@ -89,3 +89,14 @@ export interface CompletedCourse {
 export interface CourseDetailsProps {
   completed_courses: CompletedCourse[];
 }
+
+export interface Grade {
+  course_id: number;
+  course_code: string;
+  course_name: string;
+  gpa: string | null;
+  status: 'completed' | 'enrolled';
+  year: number;
+  semester_1: number;
+  semester_2: number;
+}
