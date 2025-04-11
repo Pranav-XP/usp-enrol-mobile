@@ -56,6 +56,7 @@ export default function Grades() {
         paddingLeft: insets.left,
         paddingRight: insets.right,
       }}
+      className="mx-2"
     >
       <Text className="ml-5 mt-2" variant="titleLarge">
         Grades

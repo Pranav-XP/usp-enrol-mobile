@@ -36,7 +36,7 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
   }, [filterType, filterValue, grades]);
 
   const renderItem = ({ item }: { item: Grade }) => (
-    <Card mode="elevated">
+    <Card mode="elevated" style={{ marginBottom: 10 }}>
       <Card.Content
         style={{
           flexDirection: "row",
