@@ -100,3 +100,29 @@ export interface Grade {
   semester_1: number;
   semester_2: number;
 }
+
+export interface Program {
+  id: number;
+  program_code: string;
+  name: string;
+  description: string;
+  duration: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Student {
+  id: number;
+  user_id: number;
+  student_id: string;
+  first_name: string;
+  last_name: string;
+  dob: string;
+  email: string;
+  phone: string;
+  program_id: number;
+  enrollment_year: string;
+  created_at: string;
+  updated_at: string;
+  program: Program;
+}
