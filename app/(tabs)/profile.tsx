@@ -74,7 +74,6 @@ export default function Profile() {
         marginHorizontal: 5,
       }}
     >
-      <Text variant="displaySmall">Student Profile</Text>
       <StudentProfile student={data.student} />
       <Button
         onPress={() => {

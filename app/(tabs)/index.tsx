@@ -70,7 +70,7 @@ export default function Index() {
         }}
         className="ml-5 mt-2"
       >
-        <Text variant="displaySmall">Welcome {user?.student?.first_name}</Text>
+        <Text variant="titleLarge">Welcome {user?.student?.first_name}</Text>
         <EnrolledCourses courses={enrolledCourses}></EnrolledCourses>
         <EligibleCourses
           courses={eligibleCourses}
