@@ -3,7 +3,7 @@ import GradeList from "@/components/GradesList";
 import { useSession } from "@/context/ctx";
 import { useQuery } from "@tanstack/react-query";
 import { View } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { ActivityIndicator, Card, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Grades() {
@@ -16,33 +16,34 @@ export default function Grades() {
   });
 
   if (isLoading) {
+    // Show loading indicator
     return (
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Text>Loading grades...</Text>
+        <ActivityIndicator size="large" />
+        <Text>Loading your grades...</Text>
       </View>
     );
   }
 
   if (isError) {
+    // Show error message
     return (
       <View
         style={{
           flex: 1,
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          paddingLeft: insets.left,
-          paddingRight: insets.right,
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Text>Error loading grades. Please try again later.</Text>
+        <Text variant="bodyLarge" style={{ color: "red" }}>
+          An error occurred while fetching your data.
+        </Text>
       </View>
     );
   }
