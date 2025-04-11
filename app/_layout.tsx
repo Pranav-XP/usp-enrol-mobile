@@ -14,7 +14,7 @@ import { SessionProvider } from "@/context/ctx";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { Colors } from "../constants/colors";
-import { useColorScheme } from "react-native";
+import { StatusBar, useColorScheme } from "react-native";
 
 import {
   DarkTheme as NavigationDarkTheme,
@@ -50,6 +50,7 @@ export default function RootLayout() {
         <PaperProvider theme={paperTheme}>
           <ThemeProvider value={paperTheme}>
             <SafeAreaProvider>
+              <StatusBar backgroundColor={paperTheme.colors.background} />
               <Stack
                 screenOptions={{
                   headerShown: false,
