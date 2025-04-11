@@ -15,6 +15,38 @@ export default function Grades() {
     queryFn: () => getGrades(session),
   });
 
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <Text>Loading grades...</Text>
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <Text>Error loading grades. Please try again later.</Text>
+      </View>
+    );
+  }
+
   return (
     <View
       style={{
@@ -24,12 +56,12 @@ export default function Grades() {
         paddingLeft: insets.left,
         paddingRight: insets.right,
       }}
-      className="ml-5 mr-2"
     >
       <Text className="ml-5 mt-2" variant="titleLarge">
         Grades
       </Text>
-      <GradeList grades={data.grades}></GradeList>
+      {/* Render the grades list once data is loaded */}
+      <GradeList grades={data?.grades} />
     </View>
   );
 }
