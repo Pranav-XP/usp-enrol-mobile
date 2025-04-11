@@ -1,7 +1,8 @@
 import { Grade } from "@/api/interfaces";
 import React, { useState, useEffect } from "react";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View } from "react-native";
 import {
+  Text,
   Card,
   Title,
   Paragraph,
@@ -11,7 +12,7 @@ import {
 
 const GradeList = ({ grades }: { grades: Grade[] }) => {
   const [filterType, setFilterType] = useState("semester"); // Filter type: semester or year
-  const [filterValue, setFilterValue] = useState(1); // Default to semester 1 or year 1
+  const [filterValue, setFilterValue] = useState<number | null>(1); // Default to semester 1 or year 1, null means no filter
   const [filteredGrades, setFilteredGrades] = useState(grades);
   const [years, setYears] = useState<number[]>([]);
 
@@ -24,9 +25,9 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
   // Apply the filter when the filter type or value changes
   useEffect(() => {
     const filtered = grades.filter((item) => {
-      if (filterType === "semester") {
+      if (filterType === "semester" && filterValue !== null) {
         return item[`semester_${filterValue}`] === 1;
-      } else if (filterType === "year") {
+      } else if (filterType === "year" && filterValue !== null) {
         return item.year === filterValue;
       }
       return true;
@@ -75,14 +76,14 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
           <Chip
             style={{ flex: 1, marginHorizontal: 4 }} // Equal space for each chip
             selected={filterValue === 1}
-            onPress={() => setFilterValue(1)}
+            onPress={() => setFilterValue(filterValue === 1 ? null : 1)} // Deselect if already selected
           >
             Semester 1
           </Chip>
           <Chip
             style={{ flex: 1, marginHorizontal: 4 }} // Equal space for each chip
             selected={filterValue === 2}
-            onPress={() => setFilterValue(2)}
+            onPress={() => setFilterValue(filterValue === 2 ? null : 2)} // Deselect if already selected
           >
             Semester 2
           </Chip>
@@ -95,7 +96,7 @@ const GradeList = ({ grades }: { grades: Grade[] }) => {
             <Chip
               key={year}
               selected={filterValue === year}
-              onPress={() => setFilterValue(year)}
+              onPress={() => setFilterValue(filterValue === year ? null : year)} // Deselect if already selected
             >
               Year {year}
             </Chip>
